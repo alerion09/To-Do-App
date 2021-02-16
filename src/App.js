@@ -1,10 +1,15 @@
 import React from 'react'
 import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import List from './List'
+import AddToDo from './AddToDo'
+
 
 const App = ()=>{
     return(
-        <div>
-            <h1>App</h1>
+        <div className='container'>
+            <List />
+            <AddToDo />
         </div>
     )
 }
