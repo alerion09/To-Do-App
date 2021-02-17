@@ -2,8 +2,7 @@ import React from 'react'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Task from './Task'
-import AddToDo from './AddToDo'
-import { ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+import { ListGroup, ListGroupItem, Button, Form } from 'react-bootstrap';
 
 const data = [
     {
@@ -45,7 +44,13 @@ const App = ()=>{
                 </div>
             </section>
             <section>
-                <AddToDo />
+            <Form>
+                <Form.Label>Enter your task</Form.Label>
+                    <div className='flex-column-center'>
+                        <Form.Control id='task-text' placeholder='Something to do...'></Form.Control>
+                        <Button className='mt-3' >Add task</Button>
+                    </div>
+            </Form> 
             </section>
         </div>
     )
