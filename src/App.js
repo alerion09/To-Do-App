@@ -20,22 +20,28 @@ const data = [
     }
 ]
     
-
 const App = ()=>{
+    let [tasksList, setTasksList] = React.useState(data)
+    const clearList = () =>{
+        setTasksList([])
+    }
     return(
         <div className='container'>
             <section>
                 <ListGroup>
-                    {data.map((object)=>{
+                    {tasksList.map((object)=>{
                         const {id, content} = object
                         return(
                             <ListGroupItem key={id}>
-                                <Task key={id} id={id} content={content}/>
+                                <div className='flex-row'>
+                                    <Task key={id} id={id} content={content}/>
+                                    <Button>Remove</Button>
+                                </div>
                             </ListGroupItem>
                         )})}
                 </ListGroup>
                 <div className='flex-column-center'>
-                    <Button className='mt-3'>Clear List</Button>
+                    <Button className='mt-3' onClick={clearList}>Clear List</Button>
                 </div>
             </section>
             <section>
