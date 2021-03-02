@@ -7,12 +7,12 @@ const ToDoList = (props) => {
     return (
         <section>
             <ListGroup>
-                {tasksList.map((object)=>{
+                {tasksList.map((object, index)=>{
                     const {id, content} = object
                     return(
                         <ListGroupItem key={id}>
                             <div className='flex-row'>
-                                <Task key={id} id={id} content={content}/>
+                                <Task key={id} index={index+1} content={content}/>
                                 <Button onClick={() => removeTask(id)}>Remove</Button>
                             </div>
                         </ListGroupItem>

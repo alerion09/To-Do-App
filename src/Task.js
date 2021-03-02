@@ -1,10 +1,10 @@
 import React from 'react'
 
 const Task = (props) =>{
-    const {id, content} = props
+    const {index, content} = props
     return(
         <div>
-            <span>{`${id}. `}</span>
+            <span>{`${index}. `}</span>
             <span>{content}</span>
         </div>
     )
