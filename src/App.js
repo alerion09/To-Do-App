@@ -8,6 +8,7 @@ let currentId = 0
 const App = ()=>{
     
     let [tasksList, setTasksList] = useState([])
+    
     //Function removing all objects from tasksList
     const clearList = () =>{
         setTasksList([])
