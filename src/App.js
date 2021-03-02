@@ -1,13 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Task from './Task'
-import { ListGroup, ListGroupItem, Button, Form} from 'react-bootstrap';
+import TaskInput from './TaskInput'
+import ToDoList from './ToDoList'
 
 let currentId = 0
 const App = ()=>{
     
-    let [tasksList, setTasksList] = React.useState([])
+    let [tasksList, setTasksList] = useState([])
+
     const clearList = () =>{
         setTasksList([])
     }
@@ -15,8 +16,10 @@ const App = ()=>{
         const taskText = document.getElementById('task-text')
         if (taskText.value !== ''){
             currentId = currentId + 1
-            setTasksList(oldList => [...oldList, {id: currentId,content: taskText.value}])
+            const text = taskText.value
+            setTasksList(oldList => [...oldList, {id: currentId,content: text}])
             taskText.className='form-control'
+            taskText.value=''
         }
         else {
             taskText.className='form-control is-invalid'
@@ -28,35 +31,8 @@ const App = ()=>{
     }
     return(
         <div className='container'>
-            <section>
-                <ListGroup>
-                    {tasksList.map((object)=>{
-                        const {id, content} = object
-                        return(
-                            <ListGroupItem key={id}>
-                                <div className='flex-row'>
-                                    <Task key={id} id={id} content={content}/>
-                                    <Button onClick={() => removeTask(id)}>Remove</Button>
-                                </div>
-                            </ListGroupItem>
-                        )})}
-                </ListGroup>
-                <div className='flex-column-center'>
-                    <Button className='mt-3' onClick={clearList}>Clear List</Button>
-                </div>
-            </section>
-            <section>
-                <Form>
-                    <Form.Label>Enter your task</Form.Label>
-                        <div className='flex-column-center'>
-                            <Form.Control id='task-text' placeholder='Something to do...'></Form.Control>
-                            <Form.Control.Feedback type="invalid">
-                                This field can't be empty.
-                            </Form.Control.Feedback>
-                            <Button className='mt-3' onClick={addTask}>Add task</Button>
-                        </div>
-                </Form> 
-            </section>
+            <ToDoList tasksList={tasksList} removeTask={removeTask} clearList={clearList} />
+            <TaskInput addTask={addTask} />
         </div>
     )
 }
