@@ -4,10 +4,10 @@ import Task from './Task'
 
 const ToDoList = (props) => {
     const {tasksList, removeTask, clearList} = props
-    if (tasksList.length === 0){
+    if (tasksList === null || tasksList.length === 0){
         return (
-            <section>
-                <h1>To Do List is Empty</h1>
+            <section className='flex-column-center'>
+                <h2>To Do List is Empty</h2>
             </section>
         )
     } 
@@ -15,7 +15,6 @@ const ToDoList = (props) => {
         return (
             <section>
                 <ListGroup>
-                    {console.log(tasksList)}
                     {tasksList.map((object, index)=>{
                         const {id, content} = object
                         return(

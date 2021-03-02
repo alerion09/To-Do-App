@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import TaskInput from './TaskInput'
@@ -9,6 +9,24 @@ const App = ()=>{
     
     let [tasksList, setTasksList] = useState([])
     
+    useEffect(() => {
+        checkIsLocalTasksList()
+    },[])
+    //Function checikng if tasks-list local storage item exist - if exist then pushing storaged data into tasksList useState
+    //- if is not then creating empty array item in local storage. 
+    const checkIsLocalTasksList = () => {
+        const localTasksList = localStorage.getItem('tasks-list')
+        if (localTasksList) {
+            setTasksList(JSON.parse(localTasksList))
+            console.log('load local storage')
+            console.log(localTasksList)
+        } 
+        else {
+            localStorage.setItem('tasks-list', '[]')
+            console.log('create local storage')
+            console.log(localStorage.getItem('tasks-list'))
+        }
+    }
     //Function removing all objects from tasksList
     const clearList = () =>{
         setTasksList([])
