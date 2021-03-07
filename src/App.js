@@ -5,10 +5,11 @@ import TaskInput from './TaskInput'
 import ToDoList from './ToDoList'
 import {Button} from 'react-bootstrap'
 
-let currentId = 0
+// let currentId = 0
 const App = ()=>{
     
     const [tasksList, setTasksList] = useState([])
+    const [currentId, setCurrentId] = useState(1)
     const [activeUseEffect, setActiveUseEffect] = useState(false)
 
     //UseEffect that is initializing only once  
@@ -27,15 +28,19 @@ const App = ()=>{
     //- if is not then creating empty array item in local storage. 
     const checkIsLocalTasksList = () => {
         const localTasksList = localStorage.getItem('tasks-list')
+        const localCurrentId = localStorage.getItem('current-id')
         if (localTasksList) {
             setTasksList(JSON.parse(localTasksList))
+            setCurrentId(JSON.parse(localCurrentId))
             console.log('load local storage')
             console.log(localTasksList)
         } 
         else {
             localStorage.setItem('tasks-list', '[]')
+            localStorage.setItem('current-id', '1')
             console.log('create local storage')
             console.log(localStorage.getItem('tasks-list'))
+            console.log(localStorage.getItem('current-id'))
         }
     }
     //Function removing all objects from tasksList
@@ -47,9 +52,11 @@ const App = ()=>{
     const addTask = ()=>{
         const taskText = document.getElementById('task-text')
         if (taskText.value !== ''){
-            currentId = currentId + 1
+            // currentId = currentId + 1
+
             const text = taskText.value
             setTasksList(oldList => [...oldList, {id: currentId,content: text}])
+            setCurrentId(currentId + 1)
             taskText.className='form-control'
             taskText.value=''
             setActiveUseEffect(true)
@@ -66,6 +73,7 @@ const App = ()=>{
     }
     const saveToLocalStorage = () => {
         localStorage.setItem('tasks-list', JSON.stringify(tasksList))
+        localStorage.setItem('current-id', JSON.stringify(currentId))
         console.log(localStorage.getItem('tasks-list'))
     }
     return(
