@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect} from 'react'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import TaskInput from './TaskInput'
 import ToDoList from './ToDoList'
-import {Button} from 'react-bootstrap'
 
 // let currentId = 0
 const App = ()=>{
@@ -11,7 +10,8 @@ const App = ()=>{
     const [tasksList, setTasksList] = useState([])
     const [currentId, setCurrentId] = useState(1)
     const [activeUseEffect, setActiveUseEffect] = useState(false)
-
+    const [taskText, setTaskText] = useState('')
+    const [isInputCorrect, setIsInputCorrect] = useState(true)
     //UseEffect that is initializing only once  
     useEffect(() => {
         checkIsLocalTasksList()  
@@ -41,19 +41,23 @@ const App = ()=>{
         setTasksList([])
         setActiveUseEffect(true)
     }
+    //Set state of TaskText getting text from input
+    const changeTaskText = (event) => {
+        setTaskText(event.target.value)
+    }
     //Function responsible for getting typed text, creating object and adding them into tasksList array
     const addTask = ()=>{
-        const taskText = document.getElementById('task-text')
-        if (taskText.value !== ''){
-            const text = taskText.value
-            setTasksList(oldList => [...oldList, {id: currentId,content: text}])
+        const inputText = document.getElementById('task-text')
+        if (taskText !== ''){
+            setTasksList(oldList => [...oldList, {id: currentId, content: taskText}])
             setCurrentId(currentId + 1)
-            taskText.className='form-control'
-            taskText.value=''
             setActiveUseEffect(true)
+            setIsInputCorrect(true)
+            setTaskText('')
+            inputText.value = ''
         }
         else {
-            taskText.className='form-control is-invalid'
+            setIsInputCorrect(false)
         }
     }
     //Function responsible for removing object from tasksList array
@@ -69,8 +73,8 @@ const App = ()=>{
     return(
         <div className='container'>
             <ToDoList tasksList={tasksList} removeTask={removeTask} clearList={clearList} />
-            <TaskInput addTask={addTask} />
+            <TaskInput addTask={addTask} changeTaskText={changeTaskText} isInputCorrect={isInputCorrect}/>
         </div>
     )
-}
+}  
 export default App
