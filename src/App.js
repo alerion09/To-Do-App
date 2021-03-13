@@ -77,7 +77,7 @@ const App = ()=>{
             saveToLocalStorage()
         }
     },)
-    //Function checikng if tasks-list local storage item exist - if exist then pushing storaged data into tasksList useState
+    //Function checikng if tasks-list local storage item exist - if exist then pushing storaged data into tasksList state
     //- if is not then creating empty array item in local storage. 
     const checkIsLocalTasksList = () => {
         const localTasksList = localStorage.getItem('tasks-list')

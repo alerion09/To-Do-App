@@ -1,19 +1,19 @@
 import React from 'react'
 import {ListGroup, ListGroupItem, Button} from 'react-bootstrap'
 import Task from './Task'
-
+import {FaTrashAlt} from 'react-icons/fa'
 const ToDoList = (props) => {
     const {tasksList, removeTask, clearList} = props
     if (tasksList === null || tasksList.length === 0){
         return (
-            <section className='flex-column-center'>
-                <h2>To Do List is Empty</h2>
+            <section className='flex-column-center' id='section-empty-list'>
+                <h4>To Do List is Empty</h4>
             </section>
         )
     } 
     else {
         return (
-            <section>
+            <section id='section-filled-list'>
                 <ListGroup>
                     {tasksList.map((object, index)=>{
                         const {id, content} = object
@@ -21,7 +21,7 @@ const ToDoList = (props) => {
                             <ListGroupItem key={id}>
                                 <div className='flex-row'>
                                     <Task key={id} index={index+1} content={content}/>
-                                    <Button onClick={() => removeTask(id)}>Remove</Button>
+                                    <Button size='sm' onClick={() => removeTask(id)}><FaTrashAlt /></Button>
                                 </div>
                             </ListGroupItem>
                         )})}
